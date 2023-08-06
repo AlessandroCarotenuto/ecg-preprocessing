@@ -18,6 +18,8 @@ if __name__ == '__main__':
     parser = preprocess.arg_parse_option(parser)
     parser = read_ecg.arg_parse_option(parser)
     args = parser.parse_args()
+    args.use_all_leads = True
+    
     print(args)
 
     # open files

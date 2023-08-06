@@ -2,8 +2,8 @@ import numpy as np
 import scipy.signal  as sgn
 
 
-reduced_leads = ['DI', 'DII', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
-all_leads = ['DI', 'DII', 'DIII', 'AVR', 'AVL', 'AVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
+reduced_leads = ['I', 'II', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
+all_leads = ['I', 'II', 'III', 'AVR', 'AVL', 'AVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6']
 
 
 def arg_parse_option(parser, new_len=None, new_freq=None, scale=None):
@@ -76,11 +76,11 @@ def preprocess_ecg(ecg, sample_rate, leads, new_freq=None, new_len=None, scale=1
     for i, l in enumerate(leads):
         if l in target_leads:
             ecg_targetleads[l2p[l], :] = ecg_rescaled[i, :]
-    if n_leads_target >= n_leads and use_all_leads:
-        ecg_targetleads[l2p['DIII'], :] = ecg_targetleads[l2p['DII'], :] - ecg_targetleads[l2p['DI'], :]
-        ecg_targetleads[l2p['AVR'], :] = -(ecg_targetleads[l2p['DI'], :] + ecg_targetleads[l2p['DII'], :]) / 2
-        ecg_targetleads[l2p['AVL'], :] = (ecg_targetleads[l2p['DI'], :] - ecg_targetleads[l2p['DIII'], :]) / 2
-        ecg_targetleads[l2p['AVF'], :] = (ecg_targetleads[l2p['DII'], :] + ecg_targetleads[l2p['DIII'], :]) / 2
+    # if n_leads_target >= n_leads and use_all_leads:
+    #    ecg_targetleads[l2p['III'], :] = ecg_targetleads[l2p['II'], :] - ecg_targetleads[l2p['I'], :]
+    #    ecg_targetleads[l2p['AVR'], :] = -(ecg_targetleads[l2p['I'], :] + ecg_targetleads[l2p['II'], :]) / 2
+    #    ecg_targetleads[l2p['AVL'], :] = (ecg_targetleads[l2p['I'], :] - ecg_targetleads[l2p['III'], :]) / 2
+    #    ecg_targetleads[l2p['AVF'], :] = (ecg_targetleads[l2p['II'], :] + ecg_targetleads[l2p['III'], :]) / 2
 
     # Reshape
     if new_len is None or new_len == length:
